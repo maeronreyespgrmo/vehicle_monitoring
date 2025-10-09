@@ -1,15 +1,19 @@
-import AuthenticatedSessionController from '@/actions/App/Http/Controllers/Auth/AuthenticatedSessionController';
-import InputError from '@/components/input-error';
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
 import { register } from '@/routes';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
+import AuthenticatedSessionController from '@/actions/App/Http/Controllers/Auth/AuthenticatedSessionController';
+import InputError from '@/components/input-error';
 
 interface LoginProps {
     status?: string;
@@ -17,14 +21,26 @@ interface LoginProps {
 }
 
 export default function Login({ status, canResetPassword }: LoginProps) {
-    return (
-        <AuthLayout
-            title="Log in to your account"
-            description="Enter your email and password below to log in"
-        >
-            <Head title="Log in" />
+  const [isLoading, setIsLoading] = useState(false)
 
-            <Form
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+    // Add your authentication logic here
+    setTimeout(() => setIsLoading(false), 2000)
+  }
+
+  return (
+    <div className="min-h-screen grid lg:grid-cols-2">
+      {/* Left side - Login Form */}
+      <div className="flex items-center justify-center p-8">
+        <div className="w-full max-w-md space-y-8">
+          <div className="space-y-2 text-center">
+            <h1 className="text-3xl font-bold tracking-tight">Log in to your account</h1>
+            <p className="text-muted-foreground">Enter your email and password below to log in</p>
+          </div>
+
+           <Form
                 {...AuthenticatedSessionController.store.form()}
                 resetOnSuccess={['password']}
                 className="flex flex-col gap-6"
@@ -105,11 +121,31 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                 )}
             </Form>
 
-            {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
-        </AuthLayout>
-    );
+          <div className="text-center text-sm text-muted-foreground">
+            Don't have an account?{" "}
+                Don't have an account?{' '}
+                                     <TextLink href={register()} tabIndex={5}>
+                                         Sign up
+                                     </TextLink>
+          </div>
+        </div>
+      </div>
+
+      {/* Right side - Cover Image */}
+      <div className="hidden lg:block relative bg-muted">
+        <img src="./images/capitol.jpg" alt="Login cover" className="object-cover"></img>
+        {/* <Image src="./images/" alt="Login cover" fill className="object-cover" priority /> */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-background/20" />
+        <div className="absolute bottom-0 left-0 right-0 p-12 text-white">
+          <blockquote className="space-y-4">
+            <p className="text-xl font-medium text-balance">
+              "This platform has transformed the way we work. The seamless experience and powerful features make it an
+              essential tool for our team."
+            </p>
+            <footer className="text-sm opacity-90">— Sarah Johnson, Product Manager</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  )
 }
