@@ -2,7 +2,8 @@ import { SVGAttributes } from 'react';
 
 export default function AppLogoIcon(props: SVGAttributes<SVGElement>) {
     return (
-        <img src="../images/seal_laguna.png"></img>
+        <img src="../../images/pamana_logo.jpg"             
+            style={{ width: '200px', height: 'auto' }} ></img>
         // <svg {...props} viewBox="0 0 40 42" xmlns="http://www.w3.org/2000/svg">
         //     <path
         //         fillRule="evenodd"

@@ -10,10 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { dashboard } from "@/routes"
+import { dashboard,vehicle,monitor,user} from "@/routes"
 import type { NavItem } from "@/types"
 import { Link } from "@inertiajs/react"
-import { LayoutDashboard, Users, GraduationCap } from "lucide-react"
+import { LayoutDashboard, Users, GraduationCap,Car,StopCircle} from "lucide-react"
 import AppLogo from "./app-logo"
 
 const mainNavItems: NavItem[] = [
@@ -23,14 +23,19 @@ const mainNavItems: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
-    title: "Trainees",
-    href: dashboard(),
-    icon: Users,
+    title: "Vehicle Registration",
+    href: vehicle(),
+    icon: Car,
   },
   {
-    title: "Program List",
-    href: dashboard(),
-    icon: GraduationCap,
+    title: "Parking Monitoring",
+    href: monitor(),
+    icon: StopCircle,
+  },
+  {
+    title: "Users",
+    href: user(),
+    icon: Users,
   },
 ]
 

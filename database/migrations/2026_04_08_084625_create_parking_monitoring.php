@@ -8,26 +8,20 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('tbl_list_programs', function (Blueprint $table) {
+        Schema::create('parking_monitoring', function (Blueprint $table) {
             $table->id();
-            $table->string('program_title');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('tbl_list_programs');
+        Schema::dropIfExists('parking_monitoring');
     }
 };

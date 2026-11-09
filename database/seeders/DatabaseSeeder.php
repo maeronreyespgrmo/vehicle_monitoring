@@ -16,11 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-         $this->call([
-        ListProgramSeeder::class,
-        TraineesSeeder::class
-        // CourseSeeder::class
-     ]);
+            $this->call([
+            VehicleRegistrationSeeder::class,
+            ]);
 
         User::firstOrCreate(
             ['email' => 'test@example.com'],

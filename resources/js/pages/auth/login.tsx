@@ -111,41 +111,36 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             </Button>
                         </div>
 
-                        <div className="text-center text-sm text-muted-foreground">
+                        {/* <div className="text-center text-sm text-muted-foreground">
                             Don't have an account?{' '}
                             <TextLink href={register()} tabIndex={5}>
                                 Sign up
                             </TextLink>
-                        </div>
+                        </div> */}
                     </>
                 )}
             </Form>
 
-          <div className="text-center text-sm text-muted-foreground">
+          {/* <div className="text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
                 Don't have an account?{' '}
                                      <TextLink href={register()} tabIndex={5}>
                                          Sign up
                                      </TextLink>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Right side - Cover Image */}
-      <div className="hidden lg:block relative bg-muted">
-        <img src="./images/capitol.jpg" alt="Login cover" className="object-cover"></img>
-        {/* <Image src="./images/" alt="Login cover" fill className="object-cover" priority /> */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-background/20" />
-        <div className="absolute bottom-0 left-0 right-0 p-12 text-white">
-          <blockquote className="space-y-4">
-            <p className="text-xl font-medium text-balance">
-              "This platform has transformed the way we work. The seamless experience and powerful features make it an
-              essential tool for our team."
-            </p>
-            <footer className="text-sm opacity-90">— Sarah Johnson, Product Manager</footer>
-          </blockquote>
+        <div className="hidden lg:block relative h-screen">
+          <img
+            src="/images/blur-hospital-2.jpg"
+            alt="Login cover"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-background/20" />
         </div>
-      </div>
     </div>
   )
 }

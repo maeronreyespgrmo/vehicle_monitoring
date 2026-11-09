@@ -49,7 +49,7 @@ export default function Welcome() {
                                 Let's get started
                             </h1>
                             <p className="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                Laravel has an incredibly rich ecosystem.
+                                Laravel has an incredibly richss ecosystem.
                                 <br />
                                 We suggest starting with the following.
                             </p>
