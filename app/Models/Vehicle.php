@@ -12,6 +12,6 @@ class Vehicle extends Model
     protected $fillable = [
         'driver_name',
         'plate_no',
-        'address',
+        'vehicle_name',
     ];
 }

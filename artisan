@@ -3,6 +3,7 @@
 
 use Illuminate\Foundation\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Process\Process;
 
 define('LARAVEL_START', microtime(true));
 
@@ -13,6 +14,41 @@ require __DIR__.'/vendor/autoload.php';
 /** @var Application $app */
 $app = require_once __DIR__.'/bootstrap/app.php';
 
-$status = $app->handleCommand(new ArgvInput);
+$pythonProcess = null;
+$isServeCommand = ($argv[1] ?? null) === 'serve'
+    && ! in_array('--help', $argv, true)
+    && ! in_array('-h', $argv, true);
+
+if ($isServeCommand && env('PLATE_OCR_ENABLED', true)) {
+    $pythonBinary = env(
+        'PYTHON_BINARY',
+        PHP_OS_FAMILY === 'Windows' ? 'python' : 'python3'
+    );
+
+    $pythonProcess = new Process([
+        $pythonBinary,
+        '-u',
+        base_path('public/python/plate_no.py'),
+    ], base_path());
+    $pythonProcess->setTimeout(null);
+    $pythonProcess->start(function (string $type, string $output): void {
+        $stream = $type === Process::ERR ? STDERR : STDOUT;
+        fwrite($stream, '[plate-ocr] '.$output);
+    });
+
+    register_shutdown_function(static function () use ($pythonProcess): void {
+        if ($pythonProcess->isRunning()) {
+            $pythonProcess->stop(3);
+        }
+    });
+}
+
+try {
+    $status = $app->handleCommand(new ArgvInput);
+} finally {
+    if ($pythonProcess?->isRunning()) {
+        $pythonProcess->stop(3);
+    }
+}
 
 exit($status);
